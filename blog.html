@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>
+            Blog | Luka's site
+        </title>
+        <link rel = "stylesheet" type = "text/css"
+         href = "blogcss.css">
+    </head>
+
+    <div id="elBlog">
+    <body onload="blogPost()">
+        <form id="blog-form" onsubmit="blogPost()">
+            <textarea id="blogText" class="writing" placeholder="Write here"></textarea>
+            <input id="blogAuthor" type="text" class="blog-f" name="Author" placeholder="Author">
+            <input id="blogTitle" type="text" class="blog-f" name="Title" placeholder="Blog title">
+            <input id="blogDate" type="date" class="blog-f" name="date-w" value="xxxx-xx-xx" min="2020-01-01"
+                max="2022-12-31">
+            <button id="submit" class="btn dark publish-btn" type="submit">Submit</button>
+        </form>
+        </div>    </div>
+
+        <div id="submittedDiv">
+
+        </div>
+    </div>
+
+    <script>
+    function blogPost() {
+        event.preventDefault()
+        let blogText = document.getElementById("blogText").value
+        let blogAuthor = document.getElementById("blogAuthor").value
+        let blogTitle = document.getElementById("blogTitle").value
+        let submittedDiv = document.getElementById("submittedDiv")
+        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+        let htmlString = "<h2 id='subject'> Title:" + blogTitle + "</h2>" + '<p id="content" style="word-wrap: break-word;">' + blogText + "</p>" + "<p id='ime'> Written by: " + blogAuthor + "</p>"
+        posts.push(htmlString)
+        localStorage.setItem('posts', JSON.stringify(posts))
+        let newString = "";
+        posts.forEach(element => {
+            newString += element
+            newString += "<hr>"
+        });
+        submittedDiv.innerHTML = newString
+        console.log("posts = " + posts)
+    }
+    </script>
+
+    </body>
+
+</html>
